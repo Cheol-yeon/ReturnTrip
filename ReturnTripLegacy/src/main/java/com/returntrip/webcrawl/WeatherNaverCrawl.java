@@ -24,23 +24,18 @@ public class WeatherNaverCrawl implements WeatherCrawl{
 			doc = Jsoup.connect(url).get();
 			weatherDO = new WeatherDO();
 			
-			Elements els = doc.select("div.info_data");
+			Elements els = doc.select("div.temperature_text");
 			System.out.println(els);
 
-			weatherDO.setTemperature(els.select("span.todaytemp").text());
+			weatherDO.setTemperature(els.select("strong").text());
 			
-			String temp = els.select("p.cast_txt").text();
-			if(temp.contains(",")) {
-				weatherDO.setWeather(temp.substring(0,temp.lastIndexOf(",")));
-			}
-			else {
-				weatherDO.setWeather(null);
-			}
+			String temp = els.select("span.weather before_slash").text();
+			weatherDO.setWeather(temp);
 			
-			Elements els2 = doc.select("div.sub_info");
+			Elements els2 = doc.select("ul.today_chart_list");
 			
 			List<String> list = new ArrayList<String>();
-			for(Element el : els2.select("dd.lv1")) {
+			for(Element el : els2.select("li.item_today level1")) {
 				list.add(el.text());
 			}
 			

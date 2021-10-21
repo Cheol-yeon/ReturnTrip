@@ -17,7 +17,7 @@ public class TourChungnamData implements TourData {
 
    @Override
    public List<Journey> getTourData(int numOfRows) {
-      StringBuilder urlBuilder = new StringBuilder("https://tour.chungnam.go.kr/_prog/openapi/?func=tour&start=0&end=329"); /*URL*/
+      StringBuilder urlBuilder = new StringBuilder("https://tour.chungnam.go.kr/_prog/openapi/?func=tour&start=1&end=329"); /*URL*/
        
       Journey journey = null;
       List<Journey> list = new ArrayList<Journey>();
@@ -32,7 +32,7 @@ public class TourChungnamData implements TourData {
            Document doc = Jsoup.connect(surl).get();
            Elements els = doc.select("item");
            
-           for(int i = 0 ; i < 329; i++) {
+           for(int i = 1 ; i < 329; i++) {
               journey = new Journey();
               journey.setJourneyName(els.select("nm").get(i).text()); //관광지 이름
             /*

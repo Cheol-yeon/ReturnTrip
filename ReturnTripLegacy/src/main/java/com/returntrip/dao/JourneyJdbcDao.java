@@ -29,11 +29,15 @@ public class JourneyJdbcDao implements JourneyDao {
 		this.url = url;
 		this.username = username;
 		this.password = password;
+	
+		System.out.println("JDBCDao 생성자 실행됨");
 	}
 	
 	private void connect() throws ClassNotFoundException, SQLException {
 		Class.forName(driver);
 		conn = DriverManager.getConnection(url, username, password);
+		
+		System.out.println("JDBCDao 연결 성공");
 	}
 	
 	private void disconnect() throws SQLException {
@@ -49,6 +53,8 @@ public class JourneyJdbcDao implements JourneyDao {
 			conn.close();
 			conn = null;
 		}
+		
+		System.out.println("JDBCDao 연결 끊기");
 	}
 	
 	@Override
@@ -56,7 +62,7 @@ public class JourneyJdbcDao implements JourneyDao {
 		// TODO Auto-generated method stub		
 		Journey journey = null;
 		
-		String sql = "SELECT * FROM JOURNEY WHERE journey_name = ?";
+		String sql = "SELECT * FROM JOURNEY WHERE journey_name = " + place;
 		
 		try {
 			connect();

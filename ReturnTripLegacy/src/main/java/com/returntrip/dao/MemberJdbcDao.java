@@ -1,5 +1,10 @@
 package com.returntrip.dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.returntrip.entity.Member;
@@ -11,6 +16,10 @@ public class MemberJdbcDao implements MemberDao{
 	private String username;
 	private String password;
 	
+	private Connection conn = null;
+	private PreparedStatement stmt = null;
+	private ResultSet rs = null;
+	
 	
 	public MemberJdbcDao(String driver, String url, String username, String password) {
 		super();
@@ -19,11 +28,64 @@ public class MemberJdbcDao implements MemberDao{
 		this.username = username;
 		this.password = password;
 	}
+	
+	private void connect() throws ClassNotFoundException, SQLException {
+		Class.forName(driver);
+		conn = DriverManager.getConnection(url, username, password);
+		
+		System.out.println("JDBCDao 연결 성공");
+	}
+	
+	private void disconnect() throws SQLException {
+		if (rs != null && !rs.isClosed()) {
+			rs.close();
+			rs = null;
+		}
+		if (stmt != null && !stmt.isClosed()) {
+			stmt.close();
+			stmt = null;
+		}
+		if (conn != null && !conn.isClosed()) {
+			conn.close();
+			conn = null;
+		}
+		
+		System.out.println("JDBCDao 연결 끊기");
+	}
 
 	@Override
-	public Member getMemberData(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Member getMemberData(String id) {
+		Member member = null;
+		
+		String sql = "SELECT * FROM MEMBER WHERE ID LIKE '?' ";
+		try {
+			connect();
+			
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, id);
+			
+			rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				member = new Member();
+				member.setId(rs.getString("id"));
+				member.setPwd(rs.getString("pwd"));
+				member.setName(rs.getString("name"));
+				member.setEmail(rs.getString("email"));
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				disconnect();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return member;
 	}
 
 	@Override
@@ -34,8 +96,34 @@ public class MemberJdbcDao implements MemberDao{
 
 	@Override
 	public int insertMember(Member member) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "INSERT INTO MEMBER VALUES(?,?,?,?)";
+		
+		int result = 0;
+		try {
+			connect();
+			
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setString(1, member.getId());
+			stmt.setString(2, member.getPwd());
+			stmt.setString(3, member.getName());
+			stmt.setString(4, member.getEmail());
+			
+			result = stmt.executeUpdate();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				disconnect();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
 	}
 
 	@Override

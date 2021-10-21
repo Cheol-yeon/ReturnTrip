@@ -62,30 +62,26 @@ font-size : 40px;
 </head>
 <body>
 
-	<form action="join"  id="loginForm">
+	<form action="/join"  id="loginForm">
 		<h2>회원가입</h2>
 		<div class="inForm">
-			<input type="text" name="joinId" class="text" placeholder="아이디(최대글자수:15)"
+			<input type="text" name="joinId" id="joinId" class="text" placeholder="아이디(최대글자수:15)"
 				required />
 		</div>
 		<div class="inForm">
-			<input type="password" name="joinPw" class="text" placeholder="비밀번호(최대글자수:15)"
+			<input type="password" name="joinPw" id="joinPw" class="text" placeholder="비밀번호(최대글자수:15)"
 				required />
 		</div>
 		<div class="inForm">
-			<input type="password" name="joinPwCheck" class="text" placeholder="비밀번호확인"
+			<input type="password" name="joinPwCheck" id="joinPwCheck" class="text" placeholder="비밀번호확인"
 				required />
 		</div>
 		<div class="inForm">
-			<input type="text" name="joinName" class="text" placeholder="이름"
+			<input type="text" name="joinName" id="joinName" class="text" placeholder="이름"
 				required />
 		</div>
 		<div class="inForm">
-			<input type="text" name="joinBirth" class="text" placeholder="생년(형식 :0000-00-00)"
-				required />
-		</div>
-		<div class="inForm">
-			<input type="text" name="joinEmail" class="text" placeholder="이메일"
+			<input type="text" name="joinEmail" id="joinEmail" class="text" placeholder="이메일"
 				required/>
 		</div>
 		<div>

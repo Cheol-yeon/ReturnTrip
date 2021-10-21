@@ -17,7 +17,7 @@
   </context-param>
   <context-param>
     <param-name>db_url</param-name>
-    <param-value>jdbc:oracle:thin:@db202109241747_medium?TNS_ADMIN=C://Users/minfr/Desktop/tools/Wallet_DB202109241747</param-value>
+    <param-value>jdbc:oracle:thin:@db202109241747_medium?TNS_ADMIN=C:\\Users\\User\\Desktop\\Wallet_DB202109241747</param-value>
   </context-param>
   <context-param>
     <param-name>db_userid</param-name>

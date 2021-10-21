@@ -21,6 +21,7 @@ public class JourneyController implements Controller {
 		if(method.equals("GET")) {
 			String place = request.getParameter("place");
 			Journey journey = journeyService.getJourneyData(place);
+			System.out.println(journey);
 			request.setAttribute("journey", journey);
 //			List<Journey> list = journeyService.getJourneyDatas(place);
 //			

@@ -6,7 +6,7 @@ import com.returntrip.entity.Member;
 
 public interface MemberDao {
 	
-	Member getMemberData(int id); //관리자로 로그인시 사용자 정보 조회
+	Member getMemberData(String id); //관리자로 로그인시 사용자 정보 조회
 	
 	List<Member> getMemberDatas();
 	
