@@ -57,21 +57,24 @@ public class MemberJdbcDao implements MemberDao{
 	public Member getMemberData(String id) {
 		Member member = null;
 		
-		String sql = "SELECT * FROM MEMBER WHERE ID LIKE '?' ";
+		System.out.println("MEMBERJDBC ID = " + id);
+		String sql = "SELECT ID, PWD, NAME, EMAIL FROM MEMBER WHERE ID = ?";
 		try {
 			connect();
-			
+
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, id);
-			
+
 			rs = stmt.executeQuery();
-			
-			if (rs.next()) {
-				member = new Member();
-				member.setId(rs.getString("id"));
-				member.setPwd(rs.getString("pwd"));
-				member.setName(rs.getString("name"));
-				member.setEmail(rs.getString("email"));
+
+			member = new Member();
+			while (rs.next()) {
+				System.out.println("if문 진입");
+				
+				member.setId(rs.getString("ID"));
+				member.setPwd(rs.getString("PWD"));
+				member.setName(rs.getString("NAME"));
+				member.setEmail(rs.getString("EMAIL"));
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -86,6 +89,8 @@ public class MemberJdbcDao implements MemberDao{
 		}
 		
 		return member;
+		
+		
 	}
 
 	@Override
@@ -96,7 +101,7 @@ public class MemberJdbcDao implements MemberDao{
 
 	@Override
 	public int insertMember(Member member) {
-		String sql = "INSERT INTO MEMBER VALUES(?,?,?,?)";
+		String sql = "INSERT INTO MEMBER VALUES(id_seq.nextval,?,?,?,?)";
 		
 		int result = 0;
 		try {
