@@ -37,7 +37,7 @@ public class JourneyJdbcDao implements JourneyDao {
 		Class.forName(driver);
 		conn = DriverManager.getConnection(url, username, password);
 		
-		System.out.println("JDBCDao 연결 성공");
+		System.out.println("JourneyJDBCDao 연결 성공");
 	}
 	
 	private void disconnect() throws SQLException {
@@ -61,8 +61,10 @@ public class JourneyJdbcDao implements JourneyDao {
 	public Journey getJourneyData(String place) {
 		// TODO Auto-generated method stub		
 		Journey journey = null;
+		System.out.println("getJourneyData");
 		
-		String sql = "SELECT * FROM JOURNEY WHERE journey_name = " + place;
+		String sql = "SELECT JOURNEY_NAME, CITYNAME, ROAD_BASE_ADDR, NOMINATION, LATITUDE, LONGITUDE,"
+				+ "PHONE, J_CONTENT, HOMEPAGE, LOC_CATEGORY FROM JOURNEY WHERE CITYNAME = ?";
 		
 		try {
 			connect();
@@ -70,8 +72,10 @@ public class JourneyJdbcDao implements JourneyDao {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, place);
 			rs = stmt.executeQuery();
+			System.out.println("sql실행");
 
-			if (rs.next()) {
+			while (rs.next()) {
+				System.out.println("journey if문 진입");
 				journey = new Journey();
 				journey.setJourneyName(rs.getString("JOURNEY_NAME"));
 				journey.setCityName(rs.getString("Cityname"));
@@ -82,7 +86,7 @@ public class JourneyJdbcDao implements JourneyDao {
 				journey.setPhone(rs.getString("PHONE"));
 				journey.setContent(rs.getString("J_content"));
 				journey.setHomepage(rs.getString("Homepage"));
-				journey.setCategory((new Gson()).fromJson(rs.getString("LOC_CATEGORY"), String[].class));
+				journey.setCategory(rs.getString("LOC_CATEGORY"));
 			}
 
 
@@ -172,34 +176,42 @@ public class JourneyJdbcDao implements JourneyDao {
 	}
 
 	@Override
-	public List<Journey> getJourneyDatas(String category) {
+	public List<Journey> getJourneyDatas(String place) {
 		// TODO Auto-generated method stub
 		Journey journey = null;
-		List<Journey> list = null;
-		String sql = "SELECT * FROM JOURNEY WHERE LOC_category = ?"; //index : category 설정
+		System.out.println("getJourneyData");
+		List<Journey> journeyList = new ArrayList<Journey>();
+		
+		String searchPlace = "%" + place + "%"; 
+		
+		String sql = "SELECT JOURNEY_NAME, CITYNAME, ROAD_BASE_ADDR, NOMINATION, LATITUDE, LONGITUDE,"
+				+ "PHONE, J_CONTENT, LOC_CATEGORY FROM JOURNEY WHERE CITYNAME LIKE ?";
 		
 		try {
 			connect();
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, category);
-			rs = stmt.executeQuery();
 			
-			if (rs.isBeforeFirst()) {
-				list = new ArrayList<Journey>();
-				while(rs.next()) {
-					journey = new Journey();
-					journey.setJourneyName(rs.getString("JOURNEY_NAME"));
-					journey.setCityName(rs.getString("Cityname"));
-					journey.setRoad_base_addr(rs.getString("Road_Base_addr"));
-					journey.setNomination(rs.getString("NOMINATION"));
-					journey.setLattitude(rs.getString("LATITUDE"));
-					journey.setLongitude(rs.getString("LONGITUDE"));
-					journey.setContent(rs.getString("J_CONTENT"));
-					journey.setHomepage(rs.getString("Homepage"));
-					journey.setCategory((new Gson()).fromJson(rs.getString("LOC_CATEGORY"), String[].class));
-					list.add(journey);
-				}
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, searchPlace);
+			rs = stmt.executeQuery();
+			System.out.println("sql실행");
+
+			while (rs.next()) {
+				journey = new Journey();
+				journey.setJourneyName(rs.getString("JOURNEY_NAME"));
+				journey.setCityName(rs.getString("Cityname"));
+				journey.setRoad_base_addr(rs.getString("Road_Base_addr"));
+				journey.setNomination(rs.getString("NOMINATION"));
+				journey.setLattitude(rs.getString("LATITUDE"));
+				journey.setLongitude(rs.getString("LONGITUDE"));
+				journey.setPhone(rs.getString("PHONE"));
+				journey.setContent(rs.getString("J_content"));
+				journey.setCategory(rs.getString("LOC_CATEGORY"));
+				
+				journeyList.add(journey);
 			}
+
+
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -211,38 +223,8 @@ public class JourneyJdbcDao implements JourneyDao {
 				e.printStackTrace();
 			}
 		}
-		return list;
+		
+		return journeyList;
 	}
 
-	@Override
-	public List<String> getCategory(String category) {
-		// TODO Auto-generated method stub
-		List<String> list = null;
-		String sql = "SELECT Categoty FROM JOURNEY where categoty LIKE ? group by Categoty"; //index : category 설정
-		
-		try {
-			connect();
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, "%" +category + "%");
-			rs = stmt.executeQuery();
-			
-			if (rs.isBeforeFirst()) {
-				list = new ArrayList<String>();
-				while(rs.next()) {
-					list.add(rs.getString("categoty"));
-				}
-			}
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				disconnect();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return list;
-	}
 }

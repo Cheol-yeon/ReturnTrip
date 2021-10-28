@@ -51,16 +51,6 @@ public class JourneyServiceImpl implements JourneyService {
 	public int deleteJourney(String roadBaseAddr) {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-
-	@Override
-	public List<String> getSearchDatas(String category) {
-		// TODO Auto-generated method stub
-		return journeyDao.getCategory(category);
-	}
-
-
-	
+	}	
 
 }

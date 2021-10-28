@@ -19,7 +19,12 @@ public class JoinController implements Controller {
 		String pwd = request.getParameter("joinPw");
 		String pwdcheck = request.getParameter("joinPwCheck");
 		String name = request.getParameter("joinName");
-		String email = request.getParameter("joinEmail");
+		//String email = request.getParameter("joinEmail");
+		String emailFir = request.getParameter("joinEmailFirst");
+		String emailSec = request.getParameter("joinEmailSecond");
+		
+		String email = emailFir + "@" + emailSec;
+		
 
 		System.out.println(id);
 		System.out.println(pwd);

@@ -6,46 +6,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
-<link rel="stylesheet" type="text/css" href="button.css">
-<style>
-*{
-font-family:sans-serif;
-}
-body {
-	background-color : #0B4C5F;
-}
-#loginForm { /* form은 블럭요소이다.*/
-	text-align: center;
-	position: absolute;
-	display: inline-block;
-	padding: 1% 5% 1% 5%;
-	background-color: white;
-	top: 10%;
-	left: 35%;
-	border-radius: 2em;
-}
+<title>Return Trip</title>
+<link href="/public/stylesheet/stylesheet.css?v=1.5" rel="stylesheet" type="text/css">
+<link href="/public/stylesheet/join.css?v=1.5" rel='stylesheet' type="text/css">
 
-.inForm {
-	margin: 8% 0 8% 0;
-	border-bottom : 2px solid gray;
-	width : 20em;
-}
-
-.text {
-	
-	width: 100%;
-  	font-size:20px;
-  	height:30px;
-  	border: none;
-  	
-}
-h2 {
-font-size : 40px;
-
-}
-
-</style>
 <script type="text/javascript">
   function loginWithKakao() {
     Kakao.Auth.login({
@@ -61,39 +25,94 @@ font-size : 40px;
 
 </head>
 <body>
+<%@ include file="/WEB-INF/include/header.jsp" %>
+    <article id="wrapper">
+        <div class="contents_area">
+            <section class="con_area">
+                <p id='join'>JOIN</p>
+                <hr />
+            </section>
 
-	<form action="/join"  id="loginForm">
-		<h2>회원가입</h2>
-		<div class="inForm">
-			<input type="text" name="joinId" id="joinId" class="text" placeholder="아이디(최대글자수:15)"
-				required />
-		</div>
-		<div class="inForm">
-			<input type="password" name="joinPw" id="joinPw" class="text" placeholder="비밀번호(최대글자수:15)"
-				required />
-		</div>
-		<div class="inForm">
-			<input type="password" name="joinPwCheck" id="joinPwCheck" class="text" placeholder="비밀번호확인"
-				required />
-		</div>
-		<div class="inForm">
-			<input type="text" name="joinName" id="joinName" class="text" placeholder="이름"
-				required />
-		</div>
-		<div class="inForm">
-			<input type="text" name="joinEmail" id="joinEmail" class="text" placeholder="이메일"
-				required/>
-		</div>
-		<div>
-			<input type="submit" class="button" value="sign up" /> 
-			<input type="reset" class="button" value="reset"/>
-		</div>
-		<a id="custom-login-btn" href="javascript:loginWithKakao()">
-	  <img
-	    src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
-	    width="222"
-	  />
-</a>
-	</form>
+            <div>
+            <form method="post" action="/join">
+                <table class="con_area_a">
+                    <colgroup>
+                        <col width="20%" />
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th class="j_title"><span class="join_title">아이디</span></th>
+                            <td><input type="text" class="int" name="joinId">
+                                <button type="button" class="btnJoin">
+                                    <span>중복확인</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="j_title"><span class="join_title" >이름</span></th>
+                            <td><input type="text" class="int" name="joinName"></td>
+                        </tr>
+                        <tr>
+                            <th class="j_title"><span class="join_title" >비밀번호</span></th>
+                            <td><input type="password" class="int" name="joinPw"></td>
+                        </tr>
+                        <tr>
+                            <th class="j_title"><span class="join_title"></span></th>
+                            <td class="int_b">비밀번호는 8~13자로 공백없이 입력해주세요</td>
+                        </tr>
+                        <tr>
+                            <th class="j_title"><span class="join_title" >비밀번호 확인</span></th>
+                            <td><input type="password" class="int" name="joinPwCheck"></td>
+                        </tr>
+                        <tr>
+                            <th class="j_title"><span class="join_title"></span></th>
+                            <td class="int_b">
+                                <p id="pwcheck"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="j_title"><span class="join_title" >이메일</span></th>
+                            <td>
+                                <input type="text" class="int_a" name="joinEmailFirst"><span>@</span>
+                                <input type="text" class="int_a" name="joinEmailSecond">
+                                <span>
+                                    <select name="joinEmailSecond">
+                                        <option value="" selected>선택하세요</option>
+                                        <option value="naver.com">naver.com</option>
+                                        <option value="hotmail.com">hotmail.com</option>
+                                        <option value="hanmail.com">hanmail.com</option>
+                                        <option value="yahoo.co.kr">yahoo.co.kr</option>
+                                    </select>
+                                </span>
+                                <button type="button" class="btnJoin">
+                                    <span>이메일 인증</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="j_title"><span class="join_title"></span></th>
+                            <td class="int_b">인증 코드는 5분간 유효 합니다</td>
+                        </tr>
+                        <tr>
+                            <th class="j_title"><span class="join_title">인증번호</span></th>
+                            <td><input type="text" class="int_a">
+                                <button type="button" class="btnJoin">
+                                    <span>인증확인</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="btn_wrap">
+                <button type="button" class="btnJoin_a">
+                    <span>취소</span>
+                </button>
+                <input type="submit" value="회원가입" class="btnJoin_b" />
+            </div>
+            </form>
+        </div>
+    </article>
+
 </body>
 </html>

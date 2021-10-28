@@ -10,8 +10,6 @@ public interface JourneyService {
 	
 	Journey getJourneyData(String place);
 	
-	List<String> getSearchDatas(String category);
-	
 	int insertJourney(Journey journey);
 	
 	int updateJourney(Journey journey);

@@ -4,83 +4,52 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<style>
-	body {
-	margin : 0;
-	background-color : white;
-	}
-	
-	
-	header {
-	display : flex;
-	font-size: 20px;
-	font-family : sans-serif;
-	background-color : white;
-	padding : 10px;
-	}
-	
-	#logo {
-	margin : 0 3% 0 0;
-	align-self : center;
-	text-decoration : none;
-	color : gray;
-	font-size : 40px;
-	font-weight : bold;
-	padding : 10px;
-	margin-left : 20px;
-	}
-	
-	.sb {
-		color : #1E90FF;
-	}
-	
-	
-	nav {
-	flex-grow : 5;
-	display : flex;
-	justify-content : flex-start;
-	align-self: center;
-	}
-	
-	nav a, #user a{
-		text-decoration : none;
-		color : black;
-		padding : 0 30px 0 30px;
-		font-weight : bold;
-		
-		
-	}
-	nav a:hover, #user a:hover{
-	color : #1E90FF;
-	
-	}
-	
-	#user{
-		display : flex;
-		align-self : center;
-		flex-grow : 0.2;
-		
-	}
-	section{
-	text-align: center;
-	
-	}
+<title>ReturnTrip</title>
+<link href="/public/stylesheet/header.css?v=1.5" rel='stylesheet' type="text/css">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="/public/javascript/menu.js?v=1.1" type="text/javascript"></script>
 
-</style>
-<title>Insert title here</title>
+
 </head>
 <body>
-	<header>
-		<a href = "${pageContext.request.contextPath}/home" id="logo"><span class = "sb">Return</span> trip;</a>
-		<nav>
-			<a href="${pageContext.request.contextPath}/notice" >공지사항</a>
-			<a href="${pageContext.request.contextPath}/journey" >진행중인 축제</a>
-		</nav>
-		<div id = "user">
-			<a href = "${pageContext.request.contextPath}/login">로그인</a>
-			<a href ="${pageContext.request.contextPath}/join">회원가입</a>
-			
-		</div>
-	</header>
+<!-- 
+   <header>
+      <a href = "${pageContext.request.contextPath}/home" id="logo"><span class = "sb">Return</span> trip;</a>
+      <nav>
+         <a href="${pageContext.request.contextPath}/notice" >공지사항</a>
+         <a href="${pageContext.request.contextPath}/journey" >진행중인 축제</a>
+      </nav>
+      <div id = "user">
+         <a href = "${pageContext.request.contextPath}/login">로그인</a>
+         <a href ="${pageContext.request.contextPath}/join">회원가입</a>
+         
+      </div>
+   </header>
+    -->
+    <div class="menu_section">
+
+        <section class="menu">
+            <div class="menu_area">
+                <p><a href="#">마이페이지</a></p>
+                <p><a href="#">menu</a></p>
+                <p><a href="#">menu</a></p>
+            </div>
+        </section>
+    </div>
+    
+    <header>
+        <section class="title_section">
+            <div class="top_area">
+                <h1>
+                    <a href="${pageContext.request.contextPath}/home"><span id="first_title">Return</span><span id="second_title">Trip</span><span
+                            id="first_title">;</span></a>
+                    </span>
+                </h1>
+                <img id='menu_button' src="../public/img/menubutton.png">
+                    <div class="login_area">
+                        <span><a href="${pageContext.request.contextPath}/login">로그인</a></span> | <span><a href="${pageContext.request.contextPath}/join">회원가입</a></span>
+                    </div>
+        </section>
+    </header>
 </body>
 </html>

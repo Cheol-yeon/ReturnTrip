@@ -1,0 +1,51 @@
+
+body{
+    margin:0 auto;    
+}
+
+a:visited{
+    color:gray;
+    text-decoration: none;
+}
+a{
+    color:gray;
+    text-decoration: none;
+}
+
+
+header{
+    position:relative;
+    width:1024px;
+    margin: 0 auto;
+}
+.title_section{
+    margin-top:70px;
+}
+
+.top_area h1{
+    margin:0;
+    font-size:62px;
+    font-weight: bold;
+    float:left;
+}
+#first_title{
+    color:#3498db;
+}
+#second_title{
+    color:#404040;
+}
+
+#menu_button{
+    float:right;
+    margin-top:10px;
+    cursor: pointer;
+}
+
+.login_area{
+    clear:both;
+    position:relative;
+    margin-top:30px;
+    color:#808080;
+    font-weight: bold;
+    font-size:21px;
+}

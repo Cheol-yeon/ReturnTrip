@@ -12,7 +12,7 @@ public class Journey {
 	private String phone;
 	private String content;
 	private String homepage;
-	private String[] category;
+	private String category;
 	private WeatherDO weatherDO;
 //	private String[] hashtag;
 //	private String[] img;
@@ -22,7 +22,7 @@ public class Journey {
 	}
 
 	public Journey(String journeyName, String cityName, String road_base_addr, String nomination, String lattitude,
-			String longitude, String phone, String content, String homepage, String[] category, WeatherDO weatherDO) {
+			String longitude, String phone, String content, String homepage, String category, WeatherDO weatherDO) {
 		super();
 		this.journeyName = journeyName;
 		this.cityName = cityName;
@@ -109,11 +109,11 @@ public class Journey {
 		this.homepage = homepage;
 	}
 
-	public String[] getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(String[] category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
@@ -125,12 +125,5 @@ public class Journey {
 		this.weatherDO = weatherDO;
 	}
 
-	@Override
-	public String toString() {
-		return "Journey [journeyName=" + journeyName + ", cityName=" + cityName + ", road_base_addr=" + road_base_addr
-				+ ", nomination=" + nomination + ", lattitude=" + lattitude + ", longitude=" + longitude + ", phone="
-				+ phone + ", content=" + content + ", homepage=" + homepage + ", category=" + Arrays.toString(category)
-				+ ", weatherDO=" + weatherDO + "]";
-	}
 
 }
