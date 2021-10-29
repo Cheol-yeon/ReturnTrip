@@ -21,40 +21,45 @@ public class JourneyController implements Controller {
 		ServletContext context = request.getSession().getServletContext();
 		Journey journey = new Journey();
 
-		String place = request.getParameter("place");
-		context.setAttribute("city", place);
-		String selectBtn = request.getParameter("page");
-		System.out.println("SELECT BTN = " + selectBtn);
+		
+		if(method.equals("GET")) {
+			String place = request.getParameter("place");
+			context.setAttribute("city", place);
+			String selectBtn = request.getParameter("page");
+			System.out.println("SELECT BTN = " + selectBtn);
 
-		List<Journey> journeyList = journeyService.getJourneyDatas(place);
-		System.out.println(journeyList);
-
-		double journeySize = journeyList.size();
-		System.out.println((int) journeySize);
-
-		int Last_Page = (int) Math.ceil(journeySize / 5);
-		System.out.println(Last_Page);
-
-		if (selectBtn == null || place != null) {
-			selectBtn = "1";
-			journeyList.subList(1 + (Integer.parseInt(selectBtn) - 1) * 5 - 1, Integer.parseInt(selectBtn) + 4);
-			System.out.println((Integer.parseInt(selectBtn) - 1) * 5);
-			System.out.println((Integer.parseInt(selectBtn) * 5 - 1));
+			List<Journey> journeyList = journeyService.getJourneyDatas(place);
+			System.out.println(journeyList.get(10).getImg1());
 			System.out.println(journeyList);
-		} else if (selectBtn != null && place != null) {
-			journeyList.subList(1 + (Integer.parseInt(selectBtn) - 1) * 5 - 1, Integer.parseInt(selectBtn) + 4);
-			System.out.println((Integer.parseInt(selectBtn) - 1) * 5);
-			System.out.println((Integer.parseInt(selectBtn) * 5 - 1));
-			System.out.println(journeyList);
+
+			double journeySize = journeyList.size();
+			int Last_Page = (int) Math.ceil(journeySize / 5);
+			context.setAttribute("Last_Page", Last_Page);
+			context.setAttribute("journeySize", (int) journeySize);
+
+			if (selectBtn == null && place != null) {
+				selectBtn = "1";
+				System.out.println("selectBtn == null if문 진입 : " + selectBtn);
+				// journeyList.subList(1 + (Integer.parseInt(selectBtn) - 1) * 5 - 1, Integer.parseInt(selectBtn) + 4);
+				int startNum = (Integer.parseInt(selectBtn) - 1) * 5;
+				int endNum = (Integer.parseInt(selectBtn) * 5 - 1);
+				context.setAttribute("startNum", startNum);
+				context.setAttribute("endNum", endNum);
+				System.out.println((Integer.parseInt(selectBtn) - 1) * 5);
+				System.out.println((Integer.parseInt(selectBtn) * 5 - 1));
+			} else if (selectBtn != null && place != null) {
+				System.out.println("selectBtn != null if문 진입 : " + selectBtn);
+				//journeyList.subList(1 + (Integer.parseInt(selectBtn) - 1) * 5 - 1, Integer.parseInt(selectBtn) + 4);
+				int startNum = (Integer.parseInt(selectBtn) - 1) * 5;
+				int endNum = (Integer.parseInt(selectBtn) * 5 - 1);
+				context.setAttribute("startNum", startNum);
+				context.setAttribute("endNum", endNum);
+				System.out.println((Integer.parseInt(selectBtn) - 1) * 5);
+				System.out.println((Integer.parseInt(selectBtn) * 5 - 1));
+			}
+
+			context.setAttribute("journeyList", journeyList);
 		}
-
-		context.setAttribute("Last_Page", Last_Page);
-		context.setAttribute("journeySize", (int) journeySize);
-		context.setAttribute("journeyList", journeyList);
-//			List<Journey> list = journeyService.getJourneyDatas(place);
-//			
-//			request.setAttribute("list", list);
-
 		return "searchResult.jsp";
 	}
 

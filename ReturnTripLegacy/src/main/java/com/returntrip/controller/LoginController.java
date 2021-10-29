@@ -2,6 +2,7 @@ package com.returntrip.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.returntrip.entity.Member;
 import com.returntrip.service.JourneyService;
@@ -13,6 +14,7 @@ public class LoginController implements Controller {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response, MemberService memberService,
 			JourneyService journeyService) {
 
+		HttpSession session = request.getSession();
 		String login_id = request.getParameter("login_id");
 		String login_pw = request.getParameter("login_pw");
 
@@ -25,7 +27,7 @@ public class LoginController implements Controller {
 			Member member = memberService.getMemberData(login_id);
 			System.out.println(member.getName());
 
-			request.setAttribute("login_member", member);
+			session.setAttribute("login_member", member);
 		}
 
 		return "home.jsp";

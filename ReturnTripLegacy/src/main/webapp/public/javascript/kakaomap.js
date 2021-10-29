@@ -1,13 +1,20 @@
 let container = document.getElementById('map_area');
+
+let latt = document.getElementsByName('latt')[0].value;
+let longitude = document.getElementsByName('longitude')[0].value;
+let journame = document.getElementsByName('journame')[0].value;
+
+let floatLatt = parseFloat(latt);
+let floatLong = parseFloat(longitude);
+
 let options = {
-    center: new kakao.maps.LatLng(35.83852, 129.20972),
+    center: new kakao.maps.LatLng(floatLatt, floatLong),
     level: 5
 };
-
 let map = new kakao.maps.Map(container, options);
 
 // 마커가 표시될 위치입니다 
-let markerPosition = new kakao.maps.LatLng(35.83852, 129.20972);
+let markerPosition = new kakao.maps.LatLng(floatLatt, floatLong);
 
 // 마커를 생성합니다
 let marker = new kakao.maps.Marker({
@@ -17,8 +24,12 @@ let marker = new kakao.maps.Marker({
 // 마커가 지도 위에 표시되도록 설정합니다
 marker.setMap(map);
 
-let iwContent = '<div class="marker-box" style="padding:5px;">황리단길 <br><a href="https://map.kakao.com/link/map/황리단길,35.83852, 129.20972" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>',
-    iwPosition = new kakao.maps.LatLng(35.83852, 129.20972); //인포윈도우 표시 위치입니다
+let linkHref = "https://map.kakao.com/link/map/"+journame+","+latt+","+longitude;
+
+let loadHref = "https://map.kakao.com/link/to/"+journame+","+latt+","+longitude;
+
+let iwContent = '<div class="marker-box" style="padding:5px;">'+journame+' <br><a href="'+linkHref+'" style="color:blue" target="_blank">큰지도보기</a> <a href="'+loadHref+'" style="color:blue" target="_blank">길찾기</a></div>',
+    iwPosition = new kakao.maps.LatLng(floatLatt,floatLong); //인포윈도우 표시 위치입니다
 
 // 인포윈도우를 생성합니다
 let infowindow = new kakao.maps.InfoWindow({

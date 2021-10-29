@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.returntrip.service.JourneyService;
 import com.returntrip.service.MemberService;
@@ -19,25 +20,26 @@ import com.returntrip.service.MemberService;
 @WebServlet("/")
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	private MemberService memberService = null;	
-	private JourneyService journeyService = null;	
+
+	private MemberService memberService = null;
+	private JourneyService journeyService = null;
 
 	private HandlerMapping mapper = null;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DispatcherServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public DispatcherServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
 		String path = request.getRequestURI();
@@ -48,29 +50,34 @@ public class DispatcherServlet extends HttpServlet {
 		memberService = (MemberService) getServletContext().getAttribute("member_service");
 		journeyService = (JourneyService) getServletContext().getAttribute("journey_service");
 
+		HttpSession session = request.getSession();
+		ServletContext context = session.getServletContext();
+
 		if (handler != null) {
 			viewName = handler.handleRequest(request, response, memberService, journeyService);
 		}
-		
+
 		if (viewName == null) {
 			viewName = "error.jsp";
 		}
-				
+
 		// step #3. output processing results
 		if (viewName != null && viewName != "ajax") {
 			viewName = viewName.trim();
 			viewName = "/WEB-INF/views/" + viewName;
-			
+
 			RequestDispatcher view = request.getRequestDispatcher(viewName);
 			view.forward(request, response);
-			
+
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

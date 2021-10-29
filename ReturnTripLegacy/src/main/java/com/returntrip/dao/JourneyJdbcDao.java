@@ -58,25 +58,28 @@ public class JourneyJdbcDao implements JourneyDao {
 	}
 	
 	@Override
-	public Journey getJourneyData(String place) {
+	public Journey getJourneyData(String journeyno) {
 		// TODO Auto-generated method stub		
 		Journey journey = null;
 		System.out.println("getJourneyData");
 		
-		String sql = "SELECT JOURNEY_NAME, CITYNAME, ROAD_BASE_ADDR, NOMINATION, LATITUDE, LONGITUDE,"
-				+ "PHONE, J_CONTENT, HOMEPAGE, LOC_CATEGORY FROM JOURNEY WHERE CITYNAME = ?";
+		int journey_no = Integer.parseInt(journeyno);
+		
+		String sql = "SELECT JOURNEY_NO, JOURNEY_NAME, CITYNAME, ROAD_BASE_ADDR, NOMINATION, LATITUDE, LONGITUDE,"
+				+ "PHONE, J_CONTENT, LOC_CATEGORY, img1, img2 FROM JOURNEY WHERE JOURNEY_NO = ?";
 		
 		try {
 			connect();
 			
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, place);
+			stmt.setInt(1, journey_no);
 			rs = stmt.executeQuery();
 			System.out.println("sql실행");
 
 			while (rs.next()) {
 				System.out.println("journey if문 진입");
 				journey = new Journey();
+				journey.setJourneyno(rs.getInt("JOURNEY_NO"));
 				journey.setJourneyName(rs.getString("JOURNEY_NAME"));
 				journey.setCityName(rs.getString("Cityname"));
 				journey.setRoad_base_addr(rs.getString("Road_Base_addr"));
@@ -85,8 +88,9 @@ public class JourneyJdbcDao implements JourneyDao {
 				journey.setLongitude(rs.getString("LONGITUDE"));
 				journey.setPhone(rs.getString("PHONE"));
 				journey.setContent(rs.getString("J_content"));
-				journey.setHomepage(rs.getString("Homepage"));
 				journey.setCategory(rs.getString("LOC_CATEGORY"));
+				journey.setImg1(rs.getString("img1"));
+				journey.setImg2(rs.getString("img2"));
 			}
 
 
@@ -184,8 +188,8 @@ public class JourneyJdbcDao implements JourneyDao {
 		
 		String searchPlace = "%" + place + "%"; 
 		
-		String sql = "SELECT JOURNEY_NAME, CITYNAME, ROAD_BASE_ADDR, NOMINATION, LATITUDE, LONGITUDE,"
-				+ "PHONE, J_CONTENT, LOC_CATEGORY FROM JOURNEY WHERE CITYNAME LIKE ?";
+		String sql = "SELECT JOURNEY_NO, JOURNEY_NAME, CITYNAME, ROAD_BASE_ADDR, NOMINATION, LATITUDE, LONGITUDE,"
+				+ "PHONE, J_CONTENT, LOC_CATEGORY, img1, img2 FROM JOURNEY WHERE CITYNAME LIKE ?";
 		
 		try {
 			connect();
@@ -197,6 +201,7 @@ public class JourneyJdbcDao implements JourneyDao {
 
 			while (rs.next()) {
 				journey = new Journey();
+				journey.setJourneyno(rs.getInt("JOURNEY_NO"));
 				journey.setJourneyName(rs.getString("JOURNEY_NAME"));
 				journey.setCityName(rs.getString("Cityname"));
 				journey.setRoad_base_addr(rs.getString("Road_Base_addr"));
@@ -206,6 +211,8 @@ public class JourneyJdbcDao implements JourneyDao {
 				journey.setPhone(rs.getString("PHONE"));
 				journey.setContent(rs.getString("J_content"));
 				journey.setCategory(rs.getString("LOC_CATEGORY"));
+				journey.setImg1(rs.getString("img1"));
+				journey.setImg2(rs.getString("img2"));
 				
 				journeyList.add(journey);
 			}

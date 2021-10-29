@@ -27,9 +27,9 @@ public class JourneyServiceImpl implements JourneyService {
 	}
 	
 	@Override
-	public Journey getJourneyData(String place) {
+	public Journey getJourneyData(String journeyNo) {
 		// TODO Auto-generated method stub
-		Journey journey = journeyDao.getJourneyData(place);
+		Journey journey = journeyDao.getJourneyData(journeyNo);
 //		WeatherDO weather = naverWeather.getWeatherData(journey.getCityName());
 //		journey.setWeatherDO(weather);
 		return journey;

@@ -3,6 +3,7 @@ package com.returntrip.entity;
 import java.util.Arrays;
 
 public class Journey {
+	private int journeyno;
 	private String journeyName;
 	private String cityName;
 	private String road_base_addr;
@@ -14,6 +15,8 @@ public class Journey {
 	private String homepage;
 	private String category;
 	private WeatherDO weatherDO;
+	private String img1;
+	private String img2;
 //	private String[] hashtag;
 //	private String[] img;
 
@@ -21,9 +24,11 @@ public class Journey {
 
 	}
 
-	public Journey(String journeyName, String cityName, String road_base_addr, String nomination, String lattitude,
-			String longitude, String phone, String content, String homepage, String category, WeatherDO weatherDO) {
+	public Journey(int journeyno, String journeyName, String cityName, String road_base_addr, String nomination,
+			String lattitude, String longitude, String phone, String content, String homepage, String category,
+			WeatherDO weatherDO, String img1, String img2) {
 		super();
+		this.journeyno = journeyno;
 		this.journeyName = journeyName;
 		this.cityName = cityName;
 		this.road_base_addr = road_base_addr;
@@ -35,7 +40,11 @@ public class Journey {
 		this.homepage = homepage;
 		this.category = category;
 		this.weatherDO = weatherDO;
+		this.img1 = img1;
+		this.img2 = img2;
 	}
+
+
 
 	public String getJourneyName() {
 		return journeyName;
@@ -123,6 +132,30 @@ public class Journey {
 
 	public void setWeatherDO(WeatherDO weatherDO) {
 		this.weatherDO = weatherDO;
+	}
+
+	public int getJourneyno() {
+		return journeyno;
+	}
+
+	public void setJourneyno(int journeyno) {
+		this.journeyno = journeyno;
+	}
+
+	public String getImg1() {
+		return img1;
+	}
+
+	public void setImg1(String img1) {
+		this.img1 = img1;
+	}
+
+	public String getImg2() {
+		return img2;
+	}
+
+	public void setImg2(String img2) {
+		this.img2 = img2;
 	}
 
 

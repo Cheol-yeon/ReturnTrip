@@ -9,7 +9,6 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="/public/javascript/menu.js?v=1.1" type="text/javascript"></script>
 
-
 </head>
 <body>
 <!-- 
@@ -38,6 +37,7 @@
     </div>
     
     <header>
+    <input type="hidden" value="${login_member.name}" id="login_session" />
         <section class="title_section">
             <div class="top_area">
                 <h1>
@@ -46,10 +46,26 @@
                     </span>
                 </h1>
                 <img id='menu_button' src="../public/img/menubutton.png">
-                    <div class="login_area">
-                        <span><a href="${pageContext.request.contextPath}/login">로그인</a></span> | <span><a href="${pageContext.request.contextPath}/join">회원가입</a></span>
+                    <div class="login_area" id="before_login">
+                     <span><a href="${pageContext.request.contextPath}/login">로그인</a></span> | <span><a href="${pageContext.request.contextPath}/join">회원가입</a></span>                
+                    </div>
+                    <div class="login_area" id="after_login">
+                     <span><a href="${pageContext.request.contextPath}/mypage">${login_member.name}님</a></span> | <span><a href="${pageContext.request.contextPath}/home/logout">로그아웃</a></span>                
                     </div>
         </section>
     </header>
 </body>
+<script>
+	$(document).ready(function(){
+		let login_session = $('#login_session').val();
+		if(login_session == null || login_session == undefined || login_session== ""){
+			$('#before_login').show();
+			$('#after_login').hide();
+		}
+		else{
+			$('#before_login').hide();
+			$('#after_login').show();
+		}
+	});
+</script>
 </html>

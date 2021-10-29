@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="/public/stylesheet/stylesheet.css?v=2.0" rel='stylesheet'>
+<link href="/public/stylesheet/stylesheet.css?v=2.1" rel='stylesheet'>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 </head>
@@ -21,10 +21,10 @@
 					<hr id="result_division" />
 				</div>
 				<div class="list_area">
-				<c:forEach var="journey" items="${journeyList}" begin="0" end="4">
+				<c:forEach var="journey" items="${journeyList}" begin="${startNum }" end="${endNum }">
+				<a class="list_link" href="/journey_info?place=${city}&placeNumber=${journey.journeyno }">
 					<div class="town_list">
-
-						<img src="public/img/gyoungju1.jpg" />
+						<img src="${journey.img1 } " />
 						<p>
 							<span class="town_title">관광지명 : </span><span>${journey.journeyName}</span>
 						</p>
@@ -37,6 +37,7 @@
 					</div>
 				</c:forEach>
 				</div>
+				</a>
 				<div class="list_navi">
 					 <!--   ${journeySize }-->
 					 <c:forEach var="i" begin = "1" end = "${Last_Page }">

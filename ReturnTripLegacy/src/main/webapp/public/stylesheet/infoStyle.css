@@ -24,11 +24,11 @@
 }
 
 .town_info{
-    height:380px;
+    height:500px;
     display:grid;
     grid-column-gap:15px;
     grid-template-columns: 500px 500px;
-    grid-template-rows: repeat(2, auto);
+    grid-template-rows: repeat(3, auto);
     
 }
 
@@ -55,6 +55,38 @@
     height: 320px;
     left:25px;
 }
+
+
+.preview_list{
+    grid-row:3/4;
+    display:flex;
+    justify-content: center;
+   width:100%;
+}
+
+.preview{
+    text-align:center;
+    width:120px;
+    height:100px;
+    transition:all 0.3s;
+    transition-timing-function: ease;
+}
+
+.preview img{
+    transition:all 0.3s;
+    transition-timing-function: ease;
+    border:1px solid #e2e2e2;
+    width:90px;
+    height:90px;
+    
+}
+
+.preview img:hover{
+    width:120px;
+    height:120px;
+    transition:all 0.5;
+}
+
 
 .info_title{
     margin-top:10px;
@@ -132,6 +164,7 @@
     text-align: center;
 }
 
+
 div > .marker-box{
     position:relative;
 }
@@ -155,6 +188,7 @@ div > .marker-box{
 
 .reply_area{
     margin-top:30px;
+    margin-bottom:150px;
 }
 .reply_area hr{
     margin-top:20px;
