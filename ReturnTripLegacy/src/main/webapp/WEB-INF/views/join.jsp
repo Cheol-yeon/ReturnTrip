@@ -9,6 +9,7 @@
 <title>Return Trip</title>
 <link href="/public/stylesheet/stylesheet.css?v=1.5" rel="stylesheet" type="text/css">
 <link href="/public/stylesheet/join.css?v=1.5" rel='stylesheet' type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">
   function loginWithKakao() {
@@ -74,10 +75,10 @@
                             <th class="j_title"><span class="join_title" >이메일</span></th>
                             <td>
                                 <input type="text" class="int_a" name="joinEmailFirst"><span>@</span>
-                                <input type="text" class="int_a" name="joinEmailSecond">
+                                <input type="text" class="int_a" id="uEmailSecond" name="joinEmailSecond">
                                 <span>
-                                    <select name="joinEmailSecond">
-                                        <option value="" selected>선택하세요</option>
+                                    <select name="joinEmailSecond" id="select_id">
+                                        <option value="self" selected>선택하세요</option>
                                         <option value="naver.com">naver.com</option>
                                         <option value="hotmail.com">hotmail.com</option>
                                         <option value="hanmail.com">hanmail.com</option>
@@ -115,4 +116,21 @@
     </article>
 
 </body>
+<script>
+$(document).ready(function () {
+    $('#select_id').change(function () {
+        $('#select_id option:selected').each(function () {
+            if ($(this).val() == 'self') {
+                $('#uEmailSecond').val('');
+                $('#uEmailSecond').attr('readonly', false);
+            }
+            else {
+                $("#uEmailSecond").val($(this).text());
+                $("#uEmailSecond").attr('readonly', true);
+
+            }
+        });
+    });
+});
+</script>
 </html>
